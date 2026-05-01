@@ -18,10 +18,10 @@ const globalStyles = `
 
 const FREE_LIMIT = 3;
 const STRIPE_LINK = "https://buy.stripe.com/test_7sYcN62Kxdsr8zk5SFdfG00";
-const MC_API_KEY = "186b1e4003b868b126b0112d3705715b-us15";
-const MC_AUDIENCE_ID = "5fcd43d20f";
-const MC_DC = "us15";
-const DEMO_PASSWORD = "LVAI2026";
+const MC_API_KEY = process.env.REACT_APP_MC_API_KEY || "";
+const MC_AUDIENCE_ID = process.env.REACT_APP_MC_AUDIENCE_ID || "";
+const MC_DC = process.env.REACT_APP_MC_DC || "us15";
+const DEMO_PASSWORD = process.env.REACT_APP_DEMO_PASSWORD || "LVAI2026";
 
 const addToMailchimp = async (name, email) => {
   const firstName = name.split(" ")[0] || name;

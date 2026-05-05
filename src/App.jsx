@@ -23,21 +23,31 @@ const MC_AUDIENCE_ID = process.env.REACT_APP_MC_AUDIENCE_ID || "";
 const MC_DC = process.env.REACT_APP_MC_DC || "us15";
 const DEMO_PASSWORD = process.env.REACT_APP_DEMO_PASSWORD || "LVAI2026";
 
+const getRefSource = () => {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("ref") || params.get("utm_source") || "direct";
+  } catch { return "direct"; }
+};
+
 const addToMailchimp = async (name, email) => {
   const firstName = name.split(" ")[0] || name;
   const lastName = name.split(" ").slice(1).join(" ") || "";
+  const refSource = getRefSource();
+  const tags = ["RefinedListing", "Free Trial"];
+  if (refSource !== "direct") tags.push("ref:" + refSource);
   try {
-    await fetch(`https://${MC_DC}.api.mailchimp.com/3.0/lists/${MC_AUDIENCE_ID}/members`, {
+    await fetch("https://" + MC_DC + ".api.mailchimp.com/3.0/lists/" + MC_AUDIENCE_ID + "/members", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "Authorization": `apikey ${MC_API_KEY}` },
+      headers: { "Content-Type": "application/json", "Authorization": "apikey " + MC_API_KEY },
       body: JSON.stringify({
         email_address: email, status: "subscribed",
-        merge_fields: { FNAME: firstName, LNAME: lastName },
-        tags: ["RefinedListing", "Free Trial"],
+        merge_fields: { FNAME: firstName, LNAME: lastName, SOURCE: refSource },
+        tags,
       }),
     });
   } catch (e) {
-    console.log("Mailchimp sync attempted for:", email);
+    console.log("Mailchimp sync attempted for:", email, "source:", refSource);
   }
 };
 
@@ -235,9 +245,9 @@ Address: ${form.address} | Type: ${form.type} | Beds: ${form.beds||"n/a"} | Bath
 Features: ${form.features||"none specified"} | Style: ${form.style} | Tone: ${form.tone}
 Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Specific and evocative. End with a call to action. Output the description only.`;
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}]})});
+      const res = await fetch("/api/generate", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({prompt})});
       const data = await res.json();
-      const text = data.content?.map(b=>b.text||"").join("")||"";
+      const text = data.result || "";
       setResult(text.trim());
       const newCount = generationsUsed + 1;
       setGenerationsUsed(newCount);

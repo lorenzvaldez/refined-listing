@@ -276,7 +276,7 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
         {/* Usage dots */}
         <div style={{ display:"inline-flex", alignItems:"center", gap:8, marginTop:4,
           background:"var(--card)", border:"1px solid var(--border-bright)", borderRadius:20, padding:"8px 18px" }}>
-          {[...Array(freeLimit || FREE_LIMIT)].map((_,i)=>(
+          {[...Array(Math.min(freeLimit || FREE_LIMIT, 3))].map((_,i)=>(
             <div key={i} style={{ width:8, height:8, borderRadius:"50%", transition:"background 0.4s",
               background: i < generationsUsed ? "rgba(201,168,76,0.2)" : "var(--gold)" }} />
           ))}

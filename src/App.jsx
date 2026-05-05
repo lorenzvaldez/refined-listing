@@ -222,14 +222,14 @@ function EmailGate({ onAccess }) {
 }
 
 // ─── SCREEN 2: APP ───────────────────────────────────────────────────────────
-function AppScreen({ user, generationsUsed, setGenerationsUsed, onPaywall }) {
+function AppScreen({ user, generationsUsed, setGenerationsUsed, onPaywall, freeLimit }) {
   const [form, setForm] = useState({ address:"",type:"",beds:"",baths:"",sqft:"",price:"",features:"",style:"luxury",tone:"professional" });
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
 
-  const remaining = FREE_LIMIT - generationsUsed;
+  const remaining = (freeLimit || FREE_LIMIT) - generationsUsed;
   const set = (f,v) => setForm(p=>({...p,[f]:v}));
 
   const propertyTypes = ["Single Family","Condo","Townhouse","Luxury Estate","Penthouse","Land","Commercial","Multi-Family"];
@@ -238,7 +238,7 @@ function AppScreen({ user, generationsUsed, setGenerationsUsed, onPaywall }) {
 
   const generate = async () => {
     if (!form.address || !form.type) { setError("Please enter a property address and type."); return; }
-    if (generationsUsed >= FREE_LIMIT) { onPaywall(); return; }
+    if (generationsUsed >= (freeLimit || FREE_LIMIT)) { onPaywall(); return; }
     setError(""); setLoading(true); setResult("");
     const prompt = `You are an elite real estate copywriter writing MLS-ready listing descriptions for top realtors. Write a compelling description for:
 Address: ${form.address} | Type: ${form.type} | Beds: ${form.beds||"n/a"} | Baths: ${form.baths||"n/a"} | Sqft: ${form.sqft||"n/a"} | Price: ${form.price?"$"+form.price:"n/a"}
@@ -251,7 +251,7 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
       setResult(text.trim());
       const newCount = generationsUsed + 1;
       setGenerationsUsed(newCount);
-      if (newCount >= FREE_LIMIT) setTimeout(onPaywall, 2000);
+      if (newCount >= (freeLimit || FREE_LIMIT)) setTimeout(onPaywall, 2000);
     } catch { setError("Something went wrong. Please try again."); }
     setLoading(false);
   };
@@ -276,7 +276,7 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
         {/* Usage dots */}
         <div style={{ display:"inline-flex", alignItems:"center", gap:8, marginTop:4,
           background:"var(--card)", border:"1px solid var(--border-bright)", borderRadius:20, padding:"8px 18px" }}>
-          {[...Array(FREE_LIMIT)].map((_,i)=>(
+          {[...Array(freeLimit || FREE_LIMIT)].map((_,i)=>(
             <div key={i} style={{ width:8, height:8, borderRadius:"50%", transition:"background 0.4s",
               background: i < generationsUsed ? "rgba(201,168,76,0.2)" : "var(--gold)" }} />
           ))}
@@ -503,7 +503,7 @@ export default function RefinedListing() {
         background:"radial-gradient(ellipse 80% 60% at 70% -10%,rgba(201,168,76,0.05) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 20% 100%,rgba(201,168,76,0.03) 0%,transparent 60%)"}} />
       {screen==="gate" && <EmailGate onAccess={u=>{setUser(u);setScreen("app");}} />}
       {screen==="app" && user && <AppScreen user={user} generationsUsed={generationsUsed}
-        setGenerationsUsed={setGenerationsUsed} onPaywall={()=>setScreen("paywall")} />}
+        setGenerationsUsed={setGenerationsUsed} onPaywall={()=>setScreen("paywall")} freeLimit={freeLimit} />}
       {screen==="paywall" && user && <Paywall user={user} />}
     </>
   );

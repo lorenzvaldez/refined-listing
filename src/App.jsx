@@ -245,28 +245,19 @@ Address: ${form.address} | Type: ${form.type} | Beds: ${form.beds||"n/a"} | Bath
 Features: ${form.features||"none specified"} | Style: ${form.style} | Tone: ${form.tone}
 Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Specific and evocative. End with a call to action. Output the description only.`;
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("/api/generate", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": "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",
-          "anthropic-version": "2023-06-01",
-          "anthropic-dangerous-direct-browser-access": "true"
-        },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          messages: [{ role: "user", content: prompt }]
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt })
       });
       if (!res.ok) {
         const errData = await res.json().catch(() => ({}));
-        setError("Generation failed: " + (errData.error?.message || res.status));
+        setError("Generation failed: " + (errData.error || res.status));
         setLoading(false);
         return;
       }
       const data = await res.json();
-      const text = data.content?.map(b => b.text || "").join("") || "";
+      const text = data.result || "";
       if (!text) {
         setError("No content returned. Please try again.");
         setLoading(false);

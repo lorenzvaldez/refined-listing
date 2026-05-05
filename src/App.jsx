@@ -252,7 +252,8 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
       });
       if (!res.ok) {
         const errData = await res.json().catch(() => ({}));
-        setError("Generation failed: " + (errData.error || res.status));
+        const errMsg = typeof errData.error === "string" ? errData.error : JSON.stringify(errData.error || res.status);
+        setError("Generation failed: " + errMsg);
         setLoading(false);
         return;
       }

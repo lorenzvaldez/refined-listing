@@ -246,13 +246,26 @@ Features: ${form.features||"none specified"} | Style: ${form.style} | Tone: ${fo
 Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Specific and evocative. End with a call to action. Output the description only.`;
     try {
       const res = await fetch("/api/generate", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({prompt})});
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        setError("Generation failed: " + (errData.error || res.status));
+        setLoading(false);
+        return;
+      }
       const data = await res.json();
       const text = data.result || "";
+      if (!text) {
+        setError("No content returned. Please try again.");
+        setLoading(false);
+        return;
+      }
       setResult(text.trim());
       const newCount = generationsUsed + 1;
       setGenerationsUsed(newCount);
       if (newCount >= (freeLimit || FREE_LIMIT)) setTimeout(onPaywall, 2000);
-    } catch { setError("Something went wrong. Please try again."); }
+    } catch (err) {
+      setError("Something went wrong: " + err.message);
+    }
     setLoading(false);
   };
 
@@ -276,13 +289,13 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
         {/* Usage dots */}
         <div style={{ display:"inline-flex", alignItems:"center", gap:8, marginTop:4,
           background:"var(--card)", border:"1px solid var(--border-bright)", borderRadius:20, padding:"8px 18px" }}>
-          {[...Array(Math.min(freeLimit || FREE_LIMIT, 3))].map((_,i)=>(
+          {[...Array(3)].map((_,i)=>(
             <div key={i} style={{ width:8, height:8, borderRadius:"50%", transition:"background 0.4s",
               background: i < generationsUsed ? "rgba(201,168,76,0.2)" : "var(--gold)" }} />
           ))}
           <span style={{ fontFamily:"'DM Mono',monospace", fontSize:11, marginLeft:4,
-            color: remaining > 0 ? "var(--gold)" : "#f08080", letterSpacing:"0.08em" }}>
-            {remaining > 0 ? `${remaining} free listing${remaining!==1?"s":""} remaining` : "Upgrade to continue"}
+            color: "var(--gold)", letterSpacing:"0.08em" }}>
+            {(freeLimit || FREE_LIMIT) >= 999 ? "Demo Mode — Unlimited" : remaining > 0 ? `${remaining} free listing${remaining!==1?"s":""} remaining` : "Upgrade to continue"}
           </span>
         </div>
       </div>

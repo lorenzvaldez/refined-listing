@@ -492,8 +492,6 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
       )}
       <Footer />
     </div>
-    )}
-    </div>
   );
 }
 

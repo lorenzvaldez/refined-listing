@@ -393,6 +393,7 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
           </div>
         </Card>
       ) : (
+      <>
       <Card delay={0.05}>
         <SectionLabel text="Property Details" />
         <div style={{ marginBottom:14 }}>
@@ -489,6 +490,8 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
             ))}
           </div>
         </Card>
+      )}
+      </>
       )}
       <Footer />
     </div>

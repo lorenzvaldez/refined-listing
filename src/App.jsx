@@ -136,11 +136,11 @@ function EmailGate({ onAccess }) {
         <Logo />
         <h1 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(38px,6vw,56px)",
           fontWeight:300, lineHeight:1.1, color:"var(--white)", marginBottom:14 }}>
-          Your listings.<br/><em style={{ fontStyle:"italic", color:"var(--gold)" }}>Refined.</em>
+          Your listings.<br/><em style={{ fontStyle:"italic", color:"var(--gold)" }}>Ready in seconds.</em>
         </h1>
         <GoldLine />
         <p style={{ fontSize:14, color:"var(--muted)", lineHeight:1.7, maxWidth:360, margin:"0 auto" }}>
-          MLS-ready listing descriptions in 90 seconds. Try 3 listings completely free — no credit card required.
+          AI-powered listing copy tailored specifically for real estate. Stop writing. Start closing.
         </p>
       </div>
 
@@ -159,7 +159,7 @@ function EmailGate({ onAccess }) {
             ))}
           </div>
           <p style={{ fontSize:11, color:"var(--muted)", fontFamily:"'DM Mono',monospace", letterSpacing:"0.04em" }}>
-            47 Las Vegas realtors saving 6+ hrs/month
+            47 Las Vegas realtors — listings done in seconds
           </p>
         </div>
 

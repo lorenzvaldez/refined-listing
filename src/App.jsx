@@ -136,7 +136,7 @@ function EmailGate({ onAccess }) {
         <Logo />
         <h1 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(38px,6vw,56px)",
           fontWeight:300, lineHeight:1.1, color:"var(--white)", marginBottom:14 }}>
-          Your listings.<br/><em style={{ fontStyle:"italic", color:"var(--gold)" }}>Ready in seconds.</em>
+          Your listings.<br/><em style={{ fontStyle:"italic", color:"var(--gold)" }}>Refined.</em>
         </h1>
         <GoldLine />
         <p style={{ fontSize:14, color:"var(--muted)", lineHeight:1.7, maxWidth:360, margin:"0 auto" }}>
@@ -207,7 +207,7 @@ function EmailGate({ onAccess }) {
       </Card>
 
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10 }}>
-        {[{icon:"⚡",label:"90 Seconds",sub:"Per listing"},{icon:"✦",label:"MLS Ready",sub:"Every time"},{icon:"∞",label:"All Styles",sub:"Luxury to starter"}].map(({icon,label,sub})=>(
+        {[{icon:"⚡",label:"30 Seconds",sub:"Per listing"},{icon:"✦",label:"MLS Ready",sub:"Every time"},{icon:"∞",label:"All Styles",sub:"Luxury to starter"}].map(({icon,label,sub})=>(
           <div key={label} style={{ background:"var(--card)", border:"1px solid var(--border)",
             borderRadius:12, padding:"16px 10px", textAlign:"center" }}>
             <div style={{ fontSize:18, marginBottom:6 }}>{icon}</div>

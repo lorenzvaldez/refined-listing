@@ -140,7 +140,7 @@ function EmailGate({ onAccess }) {
         </h1>
         <GoldLine />
         <p style={{ fontSize:14, color:"var(--muted)", lineHeight:1.7, maxWidth:360, margin:"0 auto" }}>
-          AI-powered listing copy tailored specifically for real estate. Stop writing. Start closing.
+          MLS-compliant. Luxury-caliber. Ready in under 30 seconds.
         </p>
       </div>
 
@@ -159,7 +159,7 @@ function EmailGate({ onAccess }) {
             ))}
           </div>
           <p style={{ fontSize:11, color:"var(--muted)", fontFamily:"'DM Mono',monospace", letterSpacing:"0.04em" }}>
-            47 Las Vegas realtors — listings done in seconds
+            47 Las Vegas realtors — compliant listings in seconds
           </p>
         </div>
 
@@ -229,6 +229,7 @@ function AppScreen({ user, generationsUsed, setGenerationsUsed, onPaywall, freeL
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
 
+  const [activeTab, setActiveTab] = useState('listing');
   const remaining = (freeLimit || FREE_LIMIT) - generationsUsed;
   const set = (f,v) => setForm(p=>({...p,[f]:v}));
 
@@ -291,6 +292,30 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
           Welcome back, <em style={{ fontStyle:"italic", color:"var(--gold)" }}>{user.name.split(" ")[0]}.</em>
         </h1>
         <GoldLine />
+        {/* Tab Navigation */}
+        <div style={{ display:"flex", gap:8, marginBottom:20 }}>
+          {["Listing Copy", "Marketing Suite"].map((tab, i) => (
+            <button key={tab} onClick={() => setActiveTab(i === 0 ? "listing" : "marketing")}
+              style={{
+                padding:"8px 16px", borderRadius:20, fontSize:11,
+                fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em",
+                textTransform:"uppercase", cursor: i === 1 ? "default" : "pointer",
+                transition:"all 0.2s",
+                background: (activeTab === 'listing' && i === 0) || (activeTab === 'marketing' && i === 1) ? "var(--gold)" : "transparent",
+                border: i === 0 ? "none" : "1px solid var(--border-bright)",
+                color: (activeTab === 'listing' && i === 0) || (activeTab === 'marketing' && i === 1) ? "#080808" : "var(--muted)",
+                display:"flex", alignItems:"center", gap:6,
+              }}>
+              {tab}
+              {i === 1 && <span style={{
+                fontSize:8, background:"rgba(201,168,76,0.2)",
+                color:"var(--gold)", padding:"2px 6px", borderRadius:10,
+                letterSpacing:"0.1em",
+              }}>FALL 2026</span>}
+            </button>
+          ))}
+        </div>
+
         {/* Usage dots */}
         <div style={{ display:"inline-flex", alignItems:"center", gap:8, marginTop:4,
           background:"var(--card)", border:"1px solid var(--border-bright)", borderRadius:20, padding:"8px 18px" }}>
@@ -305,6 +330,69 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
         </div>
       </div>
 
+      {activeTab === "marketing" ? (
+        <Card delay={0.05}>
+          <div style={{ textAlign:"center", padding:"20px 0 10px" }}>
+            <div style={{
+              width:60, height:60, borderRadius:"50%",
+              background:"var(--gold-dim)", border:"1px solid rgba(201,168,76,0.3)",
+              display:"flex", alignItems:"center", justifyContent:"center",
+              margin:"0 auto 20px",
+            }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#c9a84c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <div style={{ fontFamily:"'DM Mono',monospace", fontSize:10, color:"var(--gold)", letterSpacing:"0.2em", textTransform:"uppercase", marginBottom:8 }}>
+              Phase 2 — Coming Fall 2026
+            </div>
+            <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:28, fontWeight:300, color:"var(--white)", marginBottom:12, lineHeight:1.2 }}>
+              The Full Listing<br/><em style={{ fontStyle:"italic", color:"var(--gold)" }}>Marketing Suite</em>
+            </h2>
+            <p style={{ fontSize:13, color:"var(--muted)", lineHeight:1.7, maxWidth:380, margin:"0 auto 28px" }}>
+              Everything you need to market a listing — MLS-compliant, luxury-caliber, ready in minutes.
+            </p>
+          </div>
+
+          {[
+            { icon:"📸", title:"Instagram Caption Generator", desc:"MLS-compliant social copy tailored for luxury listings. Fair housing safe. Every time.", tag:"Fall 2026" },
+            { icon:"📧", title:"Email Blast Templates", desc:"Announce new listings to your buyer list with polished, CAN-SPAM compliant copy.", tag:"Fall 2026" },
+            { icon:"🏡", title:"Open House Announcement Copy", desc:"Drive attendance with compelling, compliant open house marketing across every channel.", tag:"Fall 2026" },
+            { icon:"📄", title:"Brochure & Flyer Copy", desc:"Print-ready property marketing copy that matches the premium feel of your listings.", tag:"Winter 2026" },
+            { icon:"📱", title:"MLS-Compliant Facebook Ad Copy", desc:"Platform-policy compliant ad scripts built for luxury real estate audiences.", tag:"Winter 2026" },
+            { icon:"🎬", title:"YouTube Property Tour Scripts", desc:"Cinematic video scripts for property tours that stop the scroll and book showings.", tag:"2027" },
+          ].map(({ icon, title, desc, tag }) => (
+            <div key={title} style={{
+              display:"flex", gap:16, padding:"16px 0",
+              borderBottom:"1px solid var(--border)",
+              alignItems:"flex-start",
+            }}>
+              <div style={{ fontSize:24, flexShrink:0, marginTop:2 }}>{icon}</div>
+              <div style={{ flex:1 }}>
+                <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:4 }}>
+                  <span style={{ fontSize:13, fontWeight:500, color:"var(--white)", fontFamily:"'Outfit',sans-serif" }}>{title}</span>
+                  <span style={{
+                    fontSize:8, padding:"2px 8px", borderRadius:10,
+                    background:"rgba(201,168,76,0.15)", color:"var(--gold)",
+                    fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em",
+                  }}>{tag}</span>
+                </div>
+                <p style={{ fontSize:12, color:"var(--muted)", lineHeight:1.5, margin:0 }}>{desc}</p>
+              </div>
+            </div>
+          ))}
+
+          <div style={{
+            marginTop:24, padding:"16px", borderRadius:10,
+            background:"var(--gold-dim)", border:"1px solid rgba(201,168,76,0.2)",
+            textAlign:"center",
+          }}>
+            <p style={{ fontSize:12, color:"var(--gold)", fontFamily:"'DM Mono',monospace", letterSpacing:"0.05em", lineHeight:1.6 }}>
+              Founding members get all Phase 2 features included<br/>at their locked rate — forever.
+            </p>
+          </div>
+        </Card>
+      ) : (
       <Card delay={0.05}>
         <SectionLabel text="Property Details" />
         <div style={{ marginBottom:14 }}>
@@ -404,6 +492,8 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
       )}
       <Footer />
     </div>
+    )}
+    </div>
   );
 }
 
@@ -470,6 +560,51 @@ function Paywall({ user }) {
               <span style={{ fontSize:13,color:"var(--muted)"}}>{perk}</span>
             </div>
           ))}
+        </div>
+
+        {/* COMING SOON SECTION */}
+        <div style={{
+          margin: "0 0 24px",
+          padding: "16px",
+          borderRadius: 10,
+          border: "1px solid rgba(201,168,76,0.2)",
+          background: "rgba(201,168,76,0.04)",
+        }}>
+          <div style={{
+            fontFamily: "'DM Mono',monospace", fontSize: 9,
+            letterSpacing: "0.2em", color: "var(--gold)",
+            textTransform: "uppercase", marginBottom: 12,
+            display: "flex", alignItems: "center", gap: 8,
+          }}>
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--gold)", animation: "pulse 2s infinite" }} />
+            Coming Soon — Full Listing Marketing Suite
+          </div>
+          {[
+            "Instagram caption generator",
+            "Open house announcement copy",
+            "Email blast templates",
+            "Brochure & flyer copy",
+            "MLS-compliant Facebook ad copy",
+            "YouTube property tour scripts",
+          ].map(feature => (
+            <div key={feature} style={{
+              display: "flex", alignItems: "center", gap: 8,
+              padding: "6px 0",
+              borderBottom: "1px solid rgba(255,255,255,0.04)",
+              fontSize: 12, color: "var(--muted)",
+              fontFamily: "'Outfit',sans-serif",
+            }}>
+              <span style={{ color: "var(--gold)", fontSize: 10 }}>◆</span>
+              {feature}
+            </div>
+          ))}
+          <p style={{
+            marginTop: 12, fontSize: 11,
+            color: "var(--gold)", fontFamily: "'DM Mono',monospace",
+            letterSpacing: "0.05em", lineHeight: 1.5,
+          }}>
+            Founding members get all future features at their locked rate — forever.
+          </p>
         </div>
 
         <a href={STRIPE_LINK} target="_blank" rel="noopener noreferrer" style={{ textDecoration:"none",display:"block" }}>

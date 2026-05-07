@@ -268,7 +268,11 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
       setResult(text.trim());
       const newCount = generationsUsed + 1;
       setGenerationsUsed(newCount);
-      if (newCount >= (freeLimit || FREE_LIMIT)) setTimeout(onPaywall, 2000);
+      if (newCount >= (freeLimit || FREE_LIMIT)) {
+        setTimeout(() => {
+          onPaywall();
+        }, 5000);
+      }
     } catch (err) {
       setError("Something went wrong: " + err.message);
     }
@@ -446,7 +450,7 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
         </div>
         {error && <div style={{ background:"rgba(220,60,60,0.08)",border:"1px solid rgba(220,60,60,0.2)",
           borderRadius:8,padding:"10px 14px",marginBottom:14,fontSize:13,color:"#f08080"}}>{error}</div>}
-        <button onClick={generate} disabled={loading} style={{
+        <button onClick={generate} disabled={loading || generationsUsed >= (freeLimit || FREE_LIMIT)} style={{
           width:"100%",padding:"16px",borderRadius:12,
           background:loading?"transparent":"linear-gradient(135deg,#c9a84c,#e8c96a,#c9a84c)",
           border:loading?"1px solid var(--gold)":"none",

@@ -17,7 +17,7 @@ const globalStyles = `
 `;
 
 const FREE_LIMIT = 3;
-const STRIPE_LINK = "https://buy.stripe.com/test_28EfZietf3RR8zk94RdfG01";
+const STRIPE_LINK = "https://buy.stripe.com/9B6bJ3loL8sFdXu2gh8IU00";
 const MC_API_KEY = process.env.REACT_APP_MC_API_KEY || "";
 const MC_AUDIENCE_ID = process.env.REACT_APP_MC_AUDIENCE_ID || "";
 const MC_DC = process.env.REACT_APP_MC_DC || "us15";

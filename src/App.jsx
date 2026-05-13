@@ -507,14 +507,7 @@ function Paywall({ user }) {
   return (
     <div style={{ position:"relative",zIndex:1,maxWidth:500,margin:"0 auto",padding:"0 20px 80px" }}>
       <div style={{ textAlign:"center",padding:"72px 0 36px",animation:"fadeDown 0.7s ease both" }}>
-        <div style={{ width:60,height:60,border:"1px solid var(--gold)",borderRadius:14,
-          display:"flex",alignItems:"center",justifyContent:"center",
-          background:"var(--gold-dim)",margin:"0 auto 24px"}}>
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-              stroke="#c9a84c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </div>
+        <Logo />
         <h1 style={{ fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(32px,5vw,48px)",
           fontWeight:300,lineHeight:1.1,color:"var(--white)",marginBottom:14}}>
           You've used your<br/><em style={{ fontStyle:"italic",color:"var(--gold)" }}>3 free listings.</em>

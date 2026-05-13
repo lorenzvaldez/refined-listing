@@ -138,7 +138,7 @@ function EmailGate({ onAccess }) {
         </h1>
         <GoldLine />
         <p style={{ fontSize:14, color:"var(--muted)", lineHeight:1.7, maxWidth:360, margin:"0 auto" }}>
-          MLS-compliant. Luxury-caliber. Ready in under 30 seconds.
+          MLS-compliant. Luxury-caliber. Generated instantly.
         </p>
       </div>
 
@@ -205,7 +205,7 @@ function EmailGate({ onAccess }) {
       </Card>
 
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10 }}>
-        {[{icon:"⚡",label:"30 Seconds",sub:"Per listing"},{icon:"✦",label:"MLS Ready",sub:"Every time"},{icon:"∞",label:"All Styles",sub:"Luxury to starter"}].map(({icon,label,sub})=>(
+        {[{icon:"⚡",label:"Instant",sub:"Per listing"},{icon:"✦",label:"MLS Ready",sub:"Every time"},{icon:"∞",label:"All Styles",sub:"Luxury to starter"}].map(({icon,label,sub})=>(
           <div key={label} style={{ background:"var(--card)", border:"1px solid var(--border)",
             borderRadius:12, padding:"16px 10px", textAlign:"center" }}>
             <div style={{ fontSize:18, marginBottom:6 }}>{icon}</div>
@@ -635,7 +635,31 @@ function Paywall({ user }) {
           ))}
         </div>
 
-        {/* FAQ */}
+        {/* PHASE 3 TEASER */}
+        <div style={{ margin:"32px 0 8px", background:"rgba(201,168,76,0.04)",
+          border:"1px solid rgba(201,168,76,0.12)", borderRadius:10, padding:"20px 24px" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:10 }}>
+            <div style={{ width:8, height:8, borderRadius:"50%", background:"rgba(201,168,76,0.5)" }} />
+            <span style={{ fontFamily:"'DM Mono',monospace", fontSize:9, letterSpacing:"0.25em",
+              color:"var(--muted)", textTransform:"uppercase" }}>Phase 3 — Coming 2027</span>
+          </div>
+          <p style={{ fontFamily:"Georgia,serif", fontSize:15, color:"var(--gold)",
+            margin:"0 0 8px", fontWeight:600, letterSpacing:"0.02em" }}>
+            Pricing Justification Copy
+          </p>
+          <p style={{ fontFamily:"Georgia,serif", fontSize:12.5, color:"var(--cream)",
+            lineHeight:1.75, margin:"0 0 12px" }}>
+            Turn your CMA data into a seller-ready pricing narrative that closes listing 
+            appointments and prevents price reduction battles. Walk into every seller meeting 
+            with professional, confidence-building copy — not an awkward conversation.
+          </p>
+          <p style={{ fontFamily:"'DM Mono',monospace", fontSize:9.5, color:"var(--muted)",
+            letterSpacing:"0.08em", margin:0 }}>
+            Founding members get early access at today's locked rate — forever.
+          </p>
+        </div>
+
+        {/* FAQ */}}
         <div style={{ margin:"32px 0 8px" }}>
           <GoldLine />
           <p style={{ fontFamily:"'DM Mono',monospace", fontSize:10, letterSpacing:"0.2em",

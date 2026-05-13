@@ -17,7 +17,6 @@ const globalStyles = `
 `;
 
 const FREE_LIMIT = 3;
-const STRIPE_LINK = "https://buy.stripe.com/9B6bJ3loL8sFdXu2gh8IU00";
 const MC_API_KEY = process.env.REACT_APP_MC_API_KEY || "";
 const MC_AUDIENCE_ID = process.env.REACT_APP_MC_AUDIENCE_ID || "";
 const MC_DC = process.env.REACT_APP_MC_DC || "us15";
@@ -110,6 +109,15 @@ function Footer() {
 }
 
 // ─── SCREEN 1: EMAIL GATE ────────────────────────────────────────────────────
+
+const TESTIMONIALS = [
+  { quote:"Done before I finish my coffee. Polished, compliant, sounds better than anything I'd write.", name:"Sarah M.", title:"Realtor® | Oahu" },
+  { quote:"Fair housing compliance is always on my mind. RefinedListing keeps language clean every time.", name:"David T.", title:"Broker/Owner | Las Vegas" },
+  { quote:"RefinedListing nailed the luxury tone. My clients actually complimented the descriptions.", name:"Priya K.", title:"Luxury Specialist | Honolulu" },
+  { quote:"I manage 30+ listings a month. The copy is consistently MLS-ready. Not going back.", name:"Marcus L.", title:"Team Lead | Las Vegas" },
+  { quote:"My listing copy used to be my weakest point. Now it's the part I'm most proud of.", name:"Jen R.", title:"Independent Agent | Maui" },
+];
+
 function EmailGate({ onAccess }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -269,7 +277,7 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
       if (newCount >= (freeLimit || FREE_LIMIT)) {
         setTimeout(() => {
           onPaywall();
-        }, 5000);
+        }, 15000);
       }
     } catch (err) {
       setError("Something went wrong: " + err.message);
@@ -296,16 +304,16 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
         <GoldLine />
         {/* Tab Navigation */}
         <div style={{ display:"flex", gap:8, marginBottom:20 }}>
-          {["Listing Copy", "Marketing Suite"].map((tab, i) => (
-            <button key={tab} onClick={() => setActiveTab(i === 0 ? "listing" : "marketing")}
+          {["Listing Copy", "Marketing Suite", "Phase 3"].map((tab, i) => (
+            <button key={tab} onClick={() => setActiveTab(i === 0 ? "listing" : i === 1 ? "marketing" : "phase3")}
               style={{
                 padding:"8px 16px", borderRadius:20, fontSize:11,
                 fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em",
                 textTransform:"uppercase", cursor: i === 1 ? "default" : "pointer",
                 transition:"all 0.2s",
-                background: (activeTab === 'listing' && i === 0) || (activeTab === 'marketing' && i === 1) ? "var(--gold)" : "transparent",
+                background: (activeTab === "listing" && i === 0) || (activeTab === "marketing" && i === 1) || (activeTab === "phase3" && i === 2) ? "var(--gold)" : "transparent",
                 border: i === 0 ? "none" : "1px solid var(--border-bright)",
-                color: (activeTab === 'listing' && i === 0) || (activeTab === 'marketing' && i === 1) ? "#080808" : "var(--muted)",
+                color: (activeTab === "listing" && i === 0) || (activeTab === "marketing" && i === 1) || (activeTab === "phase3" && i === 2) ? "#080808" : "var(--muted)",
                 display:"flex", alignItems:"center", gap:6,
               }}>
               {tab}
@@ -332,7 +340,22 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
         </div>
       </div>
 
-      {activeTab === "marketing" ? (
+      {activeTab === "phase3" ? (
+        <div style={{ padding:"20px 0" }}>
+          <div style={{ background:"rgba(201,168,76,0.04)", border:"1px solid rgba(201,168,76,0.12)", borderRadius:10, padding:"20px 24px", marginBottom:16 }}>
+            <p style={{ fontFamily:"'DM Mono',monospace", fontSize:9, letterSpacing:"0.25em", color:"var(--muted)", textTransform:"uppercase", margin:"0 0 10px" }}>Phase 3 — Coming 2027</p>
+            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:18, color:"var(--gold)", margin:"0 0 10px", fontWeight:600 }}>Pricing Justification Copy</p>
+            <p style={{ fontFamily:"Georgia,serif", fontSize:12.5, color:"var(--cream)", lineHeight:1.75, margin:"0 0 12px" }}>Turn your CMA data into a seller-ready pricing narrative. Walk into every listing appointment with copy that closes sellers and prevents price reduction battles.</p>
+            <p style={{ fontFamily:"'DM Mono',monospace", fontSize:9.5, color:"var(--muted)", letterSpacing:"0.08em", margin:0 }}>Founding members get early access at today's locked rate — forever.</p>
+          </div>
+          {["Seller-ready pricing narrative from your CMA data","Objection-handling copy for price reduction conversations","Listing appointment presentation scripts","Comparable sales storytelling copy","Seller confidence builder — close more listings"].map(f=>(
+            <div key={f} style={{ display:"flex", alignItems:"center", gap:10, padding:"8px 0", borderBottom:"1px solid rgba(201,168,76,0.1)" }}>
+              <div style={{ width:6, height:6, borderRadius:"50%", background:"rgba(201,168,76,0.5)", flexShrink:0 }} />
+              <span style={{ fontFamily:"Georgia,serif", fontSize:12, color:"var(--cream)" }}>{f}</span>
+            </div>
+          ))}
+        </div>
+      ) : activeTab === "marketing" ? (
         <Card delay={0.05}>
           <div style={{ textAlign:"center", padding:"20px 0 10px" }}>
             <div style={{
@@ -532,21 +555,15 @@ function Paywall({ user }) {
       </div>
 
       <Card>
-        <SectionLabel text="Founding Member Offer" />
-        <div style={{ textAlign:"center",marginBottom:28 }}>
-          <div style={{ display:"flex",alignItems:"baseline",justifyContent:"center",gap:8,marginBottom:10 }}>
-            <span style={{ fontFamily:"'Cormorant Garamond',serif",fontSize:68,
-              fontWeight:300,color:"var(--gold)",lineHeight:1}}>$47</span>
-            <span style={{ fontFamily:"'DM Mono',monospace",fontSize:13,color:"var(--muted)"}}>/month</span>
+        <SectionLabel text="Unlock Full Access" />
+        <div style={{ textAlign:"center", marginBottom:28 }}>
+          <div style={{ display:"flex", alignItems:"baseline", justifyContent:"center", gap:8, marginBottom:10 }}>
+            <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:68,
+              fontWeight:300, color:"var(--gold)", lineHeight:1 }}>$97</span>
+            <span style={{ fontFamily:"'DM Mono',monospace", fontSize:13, color:"var(--muted)" }}>/month</span>
           </div>
-          <div style={{ display:"inline-flex",alignItems:"center",gap:8,
-            background:"rgba(201,168,76,0.08)",border:"1px solid rgba(201,168,76,0.15)",
-            borderRadius:20,padding:"6px 16px"}}>
-            <span style={{ fontFamily:"'DM Mono',monospace",fontSize:10,color:"var(--gold)",
-              letterSpacing:"0.1em",textTransform:"uppercase"}}>Founding rate — locked in forever</span>
-          </div>
-          <p style={{ fontSize:12,color:"var(--dim)",marginTop:10,
-            fontFamily:"'DM Mono',monospace",letterSpacing:"0.05em"}}>Public price will be $197/month</p>
+          <p style={{ fontSize:12, color:"var(--dim)", marginTop:4,
+            fontFamily:"'DM Mono',monospace", letterSpacing:"0.05em" }}>Cancel anytime · Instant access</p>
         </div>
 
         <div style={{ marginBottom:28 }}>
@@ -682,21 +699,18 @@ function Paywall({ user }) {
           ))}
         </div>
 
-        <a href={STRIPE_LINK} target="_blank" rel="noopener noreferrer" style={{ textDecoration:"none",display:"block" }}>
-          <div style={{ width:"100%",padding:"16px",borderRadius:12,
+        <a href="https://buy.stripe.com/9B6bJ3loL8sFdXu2gh8IU00" target="_blank" rel="noopener noreferrer" style={{ textDecoration:"none", display:"block", marginTop:20 }}>
+          <div style={{ width:"100%", padding:"16px", borderRadius:12,
             background:"linear-gradient(135deg,#c9a84c,#e8c96a,#c9a84c)",
-            color:"#080808",fontSize:13,fontFamily:"'DM Mono',monospace",
-            letterSpacing:"0.15em",textTransform:"uppercase",cursor:"pointer",textAlign:"center",
-            display:"flex",alignItems:"center",justifyContent:"center",gap:10}}>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M2 7h10M7 2l5 5-5 5" stroke="#080808" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            Unlock Unlimited Listings — $47/month
+            color:"#080808", fontSize:14, fontWeight:700, textAlign:"center",
+            fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em", textTransform:"uppercase",
+            cursor:"pointer" }}>
+            Unlock Full Access — $97/mo
           </div>
         </a>
-        <p style={{ textAlign:"center",fontSize:11,color:"var(--dim)",marginTop:12,
-          fontFamily:"'DM Mono',monospace",letterSpacing:"0.07em"}}>
-          Cancel anytime · Instant access · Founding rate locked forever
+        <p style={{ textAlign:"center", fontSize:11, color:"var(--dim)", marginTop:12,
+          fontFamily:"'DM Mono',monospace", letterSpacing:"0.07em" }}>
+          Cancel anytime · Instant access
         </p>
       </Card>
 

@@ -17,9 +17,6 @@ const globalStyles = `
 `;
 
 const FREE_LIMIT = 3;
-const MC_API_KEY = process.env.REACT_APP_MC_API_KEY || "";
-const MC_AUDIENCE_ID = process.env.REACT_APP_MC_AUDIENCE_ID || "";
-const MC_DC = process.env.REACT_APP_MC_DC || "us15";
 const DEMO_PASSWORD = process.env.REACT_APP_DEMO_PASSWORD || "LVAI2026";
 
 const getRefSource = () => {
@@ -30,23 +27,14 @@ const getRefSource = () => {
 };
 
 const addToMailchimp = async (name, email) => {
-  const firstName = name.split(" ")[0] || name;
-  const lastName = name.split(" ").slice(1).join(" ") || "";
-  const refSource = getRefSource();
-  const tags = ["RefinedListing", "Free Trial"];
-  if (refSource !== "direct") tags.push("ref:" + refSource);
   try {
-    await fetch("https://" + MC_DC + ".api.mailchimp.com/3.0/lists/" + MC_AUDIENCE_ID + "/members", {
+    await fetch("/api/mailchimp", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "Authorization": "apikey " + MC_API_KEY },
-      body: JSON.stringify({
-        email_address: email, status: "subscribed",
-        merge_fields: { FNAME: firstName, LNAME: lastName, SOURCE: refSource },
-        tags,
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, name }),
     });
   } catch (e) {
-    console.log("Mailchimp sync attempted for:", email, "source:", refSource);
+    console.log("Mailchimp sync attempted for:", email);
   }
 };
 

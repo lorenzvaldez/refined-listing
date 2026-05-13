@@ -626,7 +626,7 @@ function Paywall({ user }) {
           </p>
         </div>
 
-        {/* FAQ */}}
+        {/* FAQ */}
         <div style={{ margin:"32px 0 8px" }}>
           <GoldLine />
           <p style={{ fontFamily:"'DM Mono',monospace", fontSize:10, letterSpacing:"0.2em",

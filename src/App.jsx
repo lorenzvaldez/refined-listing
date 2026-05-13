@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const globalStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Outfit:wght@200;300;400;500&display=swap');
@@ -725,7 +725,7 @@ export default function RefinedListing() {
   const freeLimit = isDemo ? 999 : FREE_LIMIT;
 
   // On mount, sync usage from server for this user
-  React.useEffect(() => {
+  useEffect(() => {
     if (user && user.email && !isDemo) {
       fetch("/api/usage", {
         method: "POST",

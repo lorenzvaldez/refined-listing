@@ -319,25 +319,28 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
         </h1>
         <GoldLine />
         {/* Tab Navigation */}
-        <div style={{ display:"flex", gap:8, marginBottom:20 }}>
-          {["Listing Copy", "Marketing Suite", "Phase 3"].map((tab, i) => (
-            <button key={tab} onClick={() => setActiveTab(i === 0 ? "listing" : i === 1 ? "marketing" : "phase3")}
+        <div style={{ display:"flex", gap:6, marginBottom:20 }}>
+          {[
+            { label:"Listing Copy", key:"listing", tag:null },
+            { label:"Marketing Suite", key:"marketing", tag:"Fall 2026" },
+            { label:"Phase 3", key:"phase3", tag:"2027" },
+          ].map((tab, i) => (
+            <button key={tab.key} onClick={() => setActiveTab(tab.key)}
               style={{
-                padding:"8px 16px", borderRadius:20, fontSize:11,
-                fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em",
-                textTransform:"uppercase", cursor: i === 1 ? "default" : "pointer",
-                transition:"all 0.2s",
-                background: (activeTab === "listing" && i === 0) || (activeTab === "marketing" && i === 1) || (activeTab === "phase3" && i === 2) ? "var(--gold)" : "transparent",
-                border: i === 0 ? "none" : "1px solid var(--border-bright)",
-                color: (activeTab === "listing" && i === 0) || (activeTab === "marketing" && i === 1) || (activeTab === "phase3" && i === 2) ? "#080808" : "var(--muted)",
-                display:"flex", alignItems:"center", gap:6,
+                flex:1, padding:"9px 8px", borderRadius:10, fontSize:10,
+                fontFamily:"'DM Mono',monospace", letterSpacing:"0.08em",
+                textTransform:"uppercase", cursor:"pointer", transition:"all 0.2s",
+                background: activeTab === tab.key ? "var(--gold)" : "rgba(201,168,76,0.06)",
+                border:"1px solid rgba(201,168,76,0.2)",
+                color: activeTab === tab.key ? "#080808" : "var(--muted)",
+                display:"flex", flexDirection:"column", alignItems:"center", gap:3,
               }}>
-              {tab}
-              {i === 1 && <span style={{
-                fontSize:8, background:"rgba(201,168,76,0.2)",
-                color:"var(--gold)", padding:"2px 6px", borderRadius:10,
-                letterSpacing:"0.1em",
-              }}>FALL 2026</span>}
+              <span>{tab.label}</span>
+              {tab.tag && <span style={{
+                fontSize:7, background: activeTab === tab.key ? "rgba(0,0,0,0.15)" : "rgba(201,168,76,0.15)",
+                color: activeTab === tab.key ? "#080808" : "var(--gold)",
+                padding:"1px 5px", borderRadius:6, letterSpacing:"0.1em",
+              }}>{tab.tag}</span>}
             </button>
           ))}
         </div>
@@ -372,68 +375,21 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
           ))}
         </div>
       ) : activeTab === "marketing" ? (
-        <Card delay={0.05}>
-          <div style={{ textAlign:"center", padding:"20px 0 10px" }}>
-            <div style={{
-              width:60, height:60, borderRadius:"50%",
-              background:"var(--gold-dim)", border:"1px solid rgba(201,168,76,0.3)",
-              display:"flex", alignItems:"center", justifyContent:"center",
-              margin:"0 auto 20px",
-            }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#c9a84c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <div style={{ fontFamily:"'DM Mono',monospace", fontSize:10, color:"var(--gold)", letterSpacing:"0.2em", textTransform:"uppercase", marginBottom:8 }}>
-              Phase 2 — Coming Fall 2026
-            </div>
-            <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:28, fontWeight:300, color:"var(--white)", marginBottom:12, lineHeight:1.2 }}>
-              The Full Listing<br/><em style={{ fontStyle:"italic", color:"var(--gold)" }}>Marketing Suite</em>
-            </h2>
-            <p style={{ fontSize:13, color:"var(--muted)", lineHeight:1.7, maxWidth:380, margin:"0 auto 28px" }}>
-              Everything you need to market a listing — MLS-compliant, luxury-caliber, ready in minutes.
-            </p>
+        <div style={{ padding:"20px 0" }}>
+          <div style={{ background:"rgba(201,168,76,0.04)", border:"1px solid rgba(201,168,76,0.12)", borderRadius:10, padding:"20px 24px", marginBottom:16 }}>
+            <p style={{ fontFamily:"'DM Mono',monospace", fontSize:9, letterSpacing:"0.25em", color:"var(--muted)", textTransform:"uppercase", margin:"0 0 10px" }}>Phase 2 — Coming Fall 2026</p>
+            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:18, color:"var(--gold)", margin:"0 0 10px", fontWeight:600 }}>Full Listing Marketing Suite</p>
+            <p style={{ fontFamily:"Georgia,serif", fontSize:12.5, color:"var(--cream)", lineHeight:1.75, margin:"0 0 12px" }}>Everything you need to market a listing — MLS-compliant, luxury-caliber, ready in minutes. Built for agents who want to look like they have a full marketing team.</p>
+            <p style={{ fontFamily:"'DM Mono',monospace", fontSize:9.5, color:"var(--muted)", letterSpacing:"0.08em", margin:0 }}>Founding members get all Phase 2 features at their locked rate — forever.</p>
           </div>
-
-          {[
-            { icon:"📸", title:"Instagram Caption Generator", desc:"MLS-compliant social copy tailored for luxury listings. Fair housing safe. Every time.", tag:"Fall 2026" },
-            { icon:"📧", title:"Email Blast Templates", desc:"Announce new listings to your buyer list with polished, CAN-SPAM compliant copy.", tag:"Fall 2026" },
-            { icon:"🏡", title:"Open House Announcement Copy", desc:"Drive attendance with compelling, compliant open house marketing across every channel.", tag:"Fall 2026" },
-            { icon:"📄", title:"Brochure & Flyer Copy", desc:"Print-ready property marketing copy that matches the premium feel of your listings.", tag:"Winter 2026" },
-            { icon:"📱", title:"MLS-Compliant Facebook Ad Copy", desc:"Platform-policy compliant ad scripts built for luxury real estate audiences.", tag:"Winter 2026" },
-            { icon:"🎬", title:"YouTube Property Tour Scripts", desc:"Cinematic video scripts for property tours that stop the scroll and book showings.", tag:"2027" },
-          ].map(({ icon, title, desc, tag }) => (
-            <div key={title} style={{
-              display:"flex", gap:16, padding:"16px 0",
-              borderBottom:"1px solid var(--border)",
-              alignItems:"flex-start",
-            }}>
-              <div style={{ fontSize:24, flexShrink:0, marginTop:2 }}>{icon}</div>
-              <div style={{ flex:1 }}>
-                <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:4 }}>
-                  <span style={{ fontSize:13, fontWeight:500, color:"var(--white)", fontFamily:"'Outfit',sans-serif" }}>{title}</span>
-                  <span style={{
-                    fontSize:8, padding:"2px 8px", borderRadius:10,
-                    background:"rgba(201,168,76,0.15)", color:"var(--gold)",
-                    fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em",
-                  }}>{tag}</span>
-                </div>
-                <p style={{ fontSize:12, color:"var(--muted)", lineHeight:1.5, margin:0 }}>{desc}</p>
-              </div>
+          {["Instagram caption generator — MLS-compliant, fair housing safe","Email blast templates for new listing announcements","Open house announcement copy for every channel","Brochure & flyer copy — print-ready","MLS-compliant Facebook ad scripts","YouTube property tour scripts"].map(f=>(
+            <div key={f} style={{ display:"flex", alignItems:"center", gap:10, padding:"8px 0", borderBottom:"1px solid rgba(201,168,76,0.1)" }}>
+              <div style={{ width:6, height:6, borderRadius:"50%", background:"rgba(201,168,76,0.5)", flexShrink:0 }} />
+              <span style={{ fontFamily:"Georgia,serif", fontSize:12, color:"var(--cream)" }}>{f}</span>
             </div>
           ))}
-
-          <div style={{
-            marginTop:24, padding:"16px", borderRadius:10,
-            background:"var(--gold-dim)", border:"1px solid rgba(201,168,76,0.2)",
-            textAlign:"center",
-          }}>
-            <p style={{ fontSize:12, color:"var(--gold)", fontFamily:"'DM Mono',monospace", letterSpacing:"0.05em", lineHeight:1.6 }}>
-              Founding members get all Phase 2 features included<br/>at their locked rate — forever.
-            </p>
-          </div>
-        </Card>
-      ) : (
+        </div>
+      ) : (      ) : (
       <>
       <Card delay={0.05}>
         <SectionLabel text="Property Details" />

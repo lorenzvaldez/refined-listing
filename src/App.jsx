@@ -644,29 +644,7 @@ function Paywall({ user }) {
         </div>
 
 
-        {/* TESTIMONIALS */}
-        <div style={{ margin:"32px 0 8px", textAlign:"center" }}>
-          <GoldLine />
-          <p style={{ fontFamily:"'DM Mono',monospace", fontSize:10, letterSpacing:"0.2em",
-            color:"var(--muted)", textTransform:"uppercase", margin:"16px 0 20px" }}>
-            What Agents Are Saying
-          </p>
-          {[
-            { quote:"I used to spend 45 minutes writing each listing. Now it's done before I finish my coffee. The copy is polished, compliant, and sounds better than anything I'd write myself.", name:"Sarah M.", title:"Realtor® | Oahu" },
-            { quote:"As a broker, fair housing compliance is always on my mind. RefinedListing gives my agents a tool that keeps the language clean and professional every single time. It's a no-brainer.", name:"David T.", title:"Broker/Owner | Las Vegas" },
-            { quote:"I was skeptical about AI writing my listings — I have a very specific voice. But RefinedListing nailed the luxury tone for my high-end properties. My clients actually complimented the descriptions.", name:"Priya K.", title:"Luxury Specialist | Honolulu" },
-            { quote:"I manage 30+ listings a month. RefinedListing saves me hours every week and the copy is consistently MLS-ready. I'm not going back to doing this manually.", name:"Marcus L.", title:"Team Lead | Las Vegas" },
-            { quote:"My listing copy used to be the weakest part of my marketing. Now it's the part I'm most proud of. RefinedListing made me look like I have a professional copywriter on staff.", name:"Jen R.", title:"Independent Agent | Maui" },
-          ].map((t, i) => (
-            <div key={i} style={{ background:"rgba(201,168,76,0.06)", border:"1px solid rgba(201,168,76,0.15)",
-              borderRadius:8, padding:"16px 20px", marginBottom:12, textAlign:"left" }}>
-              <p style={{ fontFamily:"Georgia,serif", fontSize:13, color:"var(--cream)", lineHeight:1.7,
-                fontStyle:"italic", margin:"0 0 10px" }}>"{t.quote}"</p>
-              <p style={{ fontFamily:"'DM Mono',monospace", fontSize:10, color:"var(--gold)",
-                letterSpacing:"0.1em", margin:0 }}>— {t.name}, {t.title}</p>
-            </div>
-          ))}
-        </div>
+
 
         {/* PHASE 3 TEASER */}
         <div style={{ margin:"32px 0 8px", background:"rgba(201,168,76,0.04)",
@@ -715,7 +693,7 @@ function Paywall({ user }) {
           ))}
         </div>
 
-        <a href="https://buy.stripe.com/9B6bJ3loL8sFdXu2gh8IU00" target="_blank" rel="noopener noreferrer" style={{ textDecoration:"none", display:"block", marginTop:20 }}>
+        <a href="https://buy.stripe.com/9B6bJ31oL8sFdXu2gh8IU00" target="_blank" rel="noopener noreferrer" style={{ textDecoration:"none", display:"block", marginTop:20 }}>
           <div style={{ width:"100%", padding:"16px", borderRadius:12,
             background:"linear-gradient(135deg,#c9a84c,#e8c96a,#c9a84c)",
             color:"#080808", fontSize:14, fontWeight:700, textAlign:"center",

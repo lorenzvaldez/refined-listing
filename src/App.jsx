@@ -247,7 +247,7 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt })
+        body: JSON.stringify({ prompt, email: user?.email })
       });
       if (!res.ok) {
         const errData = await res.json().catch(() => ({}));
@@ -723,6 +723,20 @@ export default function RefinedListing() {
   const [user, setUser] = useState(isDemo ? { name: "Demo Mode", email: "demo@refinedlisting.com" } : null);
   const [generationsUsed, setGenerationsUsed] = useState(0);
   const freeLimit = isDemo ? 999 : FREE_LIMIT;
+
+  // On mount, sync usage from server for this user
+  React.useEffect(() => {
+    if (user && user.email && !isDemo) {
+      fetch("/api/usage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: user.email, action: "check" })
+      })
+        .then(r => r.json())
+        .then(d => { if (d.used !== undefined) setGenerationsUsed(d.used); })
+        .catch(() => {});
+    }
+  }, [user]);
 
   return (
     <>

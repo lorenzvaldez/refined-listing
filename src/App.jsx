@@ -389,7 +389,7 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
             </div>
           ))}
         </div>
-      ) : (      ) : (
+      ) : (
       <>
       <Card delay={0.05}>
         <SectionLabel text="Property Details" />

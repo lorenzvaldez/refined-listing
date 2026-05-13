@@ -323,7 +323,7 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
           {[
             { label:"Listing Copy", key:"listing", tag:null },
             { label:"Marketing Suite", key:"marketing", tag:"Fall 2026" },
-            { label:"Phase 3", key:"phase3", tag:"2027" },
+            { label:"Phase 3", key:"phase3", tag:"Winter 2026" },
           ].map((tab, i) => (
             <button key={tab.key} onClick={() => setActiveTab(tab.key)}
               style={{
@@ -362,7 +362,7 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
       {activeTab === "phase3" ? (
         <div style={{ padding:"20px 0" }}>
           <div style={{ background:"rgba(201,168,76,0.04)", border:"1px solid rgba(201,168,76,0.12)", borderRadius:10, padding:"20px 24px", marginBottom:16 }}>
-            <p style={{ fontFamily:"'DM Mono',monospace", fontSize:9, letterSpacing:"0.25em", color:"var(--muted)", textTransform:"uppercase", margin:"0 0 10px" }}>Phase 3 — Coming 2027</p>
+            <p style={{ fontFamily:"'DM Mono',monospace", fontSize:9, letterSpacing:"0.25em", color:"var(--muted)", textTransform:"uppercase", margin:"0 0 10px" }}>Phase 3 — Coming Winter 2026</p>
             <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:18, color:"var(--gold)", margin:"0 0 10px", fontWeight:600 }}>Pricing Justification Copy</p>
             <p style={{ fontFamily:"Georgia,serif", fontSize:12.5, color:"var(--cream)", lineHeight:1.75, margin:"0 0 12px" }}>Turn your CMA data into a seller-ready pricing narrative. Walk into every listing appointment with copy that closes sellers and prevents price reduction battles.</p>
             <p style={{ fontFamily:"'DM Mono',monospace", fontSize:9.5, color:"var(--muted)", letterSpacing:"0.08em", margin:0 }}>Founding members get early access at today's locked rate — forever.</p>
@@ -502,7 +502,6 @@ function Paywall({ user }) {
     "All styles: Luxury, Modern, Warm, Investment",
     "All tones: Professional, Storytelling, Bold, Elegant",
     "Priority support directly from the founder",
-    "Free month for every realtor you refer",
     "Founding rate locked in — never increases",
   ];
   return (
@@ -608,7 +607,7 @@ function Paywall({ user }) {
           <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:10 }}>
             <div style={{ width:8, height:8, borderRadius:"50%", background:"rgba(201,168,76,0.5)" }} />
             <span style={{ fontFamily:"'DM Mono',monospace", fontSize:9, letterSpacing:"0.25em",
-              color:"var(--muted)", textTransform:"uppercase" }}>Phase 3 — Coming 2027</span>
+              color:"var(--muted)", textTransform:"uppercase" }}>Phase 3 — Coming Winter 2026</span>
           </div>
           <p style={{ fontFamily:"Georgia,serif", fontSize:15, color:"var(--gold)",
             margin:"0 0 8px", fontWeight:600, letterSpacing:"0.02em" }}>
@@ -660,7 +659,7 @@ function Paywall({ user }) {
         </a>
         <p style={{ textAlign:"center", fontSize:11, color:"var(--dim)", marginTop:12,
           fontFamily:"'DM Mono',monospace", letterSpacing:"0.07em" }}>
-          Cancel anytime · Instant access
+          Cancel anytime · email <a href="mailto:lorenz@refinedlisting.com" style={{ color:"var(--gold)", textDecoration:"none" }}>lorenz@refinedlisting.com</a>
         </p>
       </Card>
 

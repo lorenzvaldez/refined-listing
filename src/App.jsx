@@ -222,6 +222,22 @@ function EmailGate({ onAccess }) {
           </div>
         ))}
       </div>
+      {/* Testimonials on landing page */}
+      <div style={{ marginTop:32, paddingBottom:16 }}>
+        <p style={{ fontFamily:"'DM Mono',monospace", fontSize:9, letterSpacing:"0.2em",
+          color:"var(--muted)", textTransform:"uppercase", textAlign:"center", marginBottom:16 }}>
+          What Agents Are Saying
+        </p>
+        {TESTIMONIALS.map((t,i) => (
+          <div key={i} style={{ background:"rgba(201,168,76,0.04)", border:"1px solid rgba(201,168,76,0.1)",
+            borderRadius:8, padding:"14px 16px", marginBottom:10 }}>
+            <p style={{ fontFamily:"Georgia,serif", fontSize:12, color:"var(--cream)", lineHeight:1.7,
+              fontStyle:"italic", margin:"0 0 8px" }}>"{t.quote}"</p>
+            <p style={{ fontFamily:"'DM Mono',monospace", fontSize:9, color:"var(--gold)",
+              letterSpacing:"0.1em", margin:0 }}>— {t.name}, {t.title}</p>
+          </div>
+        ))}
+      </div>
       <Footer />
     </div>
   );
@@ -747,7 +763,12 @@ export default function RefinedListing() {
         body: JSON.stringify({ email: user.email, action: "check" })
       })
         .then(r => r.json())
-        .then(d => { if (d.used !== undefined) setGenerationsUsed(d.used); })
+        .then(d => {
+          if (d.used !== undefined) {
+            setGenerationsUsed(d.used);
+            if (d.used >= FREE_LIMIT) setScreen("paywall");
+          }
+        })
         .catch(() => {});
     }
   }, [user]);

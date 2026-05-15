@@ -249,7 +249,7 @@ function AppScreen({ user, generationsUsed, setGenerationsUsed, onPaywall, freeL
 
   const generate = async () => {
     if (!form.address || !form.type) { setError("Please enter a property address and type."); return; }
-    if (generationsUsed >= (freeLimit || FREE_LIMIT)) { onPaywall(); return; }
+    if (generationsUsed >= (freeLimit || FREE_LIMIT) && freeLimit < 999) { onPaywall(); return; }
     setError(""); setLoading(true); setResult("");
     const prompt = `You are an elite real estate copywriter writing MLS-ready listing descriptions for top realtors. Write a compelling description for:
 Address: ${form.address} | Type: ${form.type} | Beds: ${form.beds||"n/a"} | Baths: ${form.baths||"n/a"} | Sqft: ${form.sqft||"n/a"} | Price: ${form.price?"$"+form.price:"n/a"}
@@ -278,7 +278,7 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
       setResult(text.trim());
       const newCount = generationsUsed + 1;
       setGenerationsUsed(newCount);
-      if (newCount >= (freeLimit || FREE_LIMIT)) {
+      if (newCount >= (freeLimit || FREE_LIMIT) && freeLimit < 999) {
         setTimeout(() => {
           onPaywall();
         }, 15000);
@@ -431,7 +431,7 @@ Rules: 150-200 words. Powerful hook. No clichés like "nestled" or "boasts". Spe
         </div>
         {error && <div style={{ background:"rgba(220,60,60,0.08)",border:"1px solid rgba(220,60,60,0.2)",
           borderRadius:8,padding:"10px 14px",marginBottom:14,fontSize:13,color:"#f08080"}}>{error}</div>}
-        <button onClick={generate} disabled={loading || generationsUsed >= (freeLimit || FREE_LIMIT)} style={{
+        <button onClick={generate} disabled={loading || (generationsUsed >= (freeLimit || FREE_LIMIT) && freeLimit < 999)} style={{
           width:"100%",padding:"16px",borderRadius:12,
           background:loading?"transparent":"linear-gradient(135deg,#c9a84c,#e8c96a,#c9a84c)",
           border:loading?"1px solid var(--gold)":"none",

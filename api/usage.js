@@ -21,6 +21,11 @@ export default async function handler(req, res) {
 
   if (!email) return res.status(400).json({ error: "Email required" });
 
+  // Demo email is unlimited — skip all tracking
+  if (email === 'demo@refinedlisting.com') {
+    return res.status(200).json({ used: 0, remaining: 999, limit: 999, hasAccess: true });
+  }
+
   const key = `usage:${email.toLowerCase().trim()}`;
 
   try {

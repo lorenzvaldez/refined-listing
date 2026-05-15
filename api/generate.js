@@ -28,11 +28,12 @@ export default async function handler(req, res) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return res.status(500).json({ error: "API key not configured" });
 
-  // --- Usage enforcement via Upstash ---
-  if (email) {
-    const key = `usage:${email.toLowerCase().trim()}`;
+  // --- Check usage limit first (don't increment yet) ---
+  let usageKey = null;
+  if (email && email !== 'demo@refinedlisting.com') {
+    usageKey = `usage:${email.toLowerCase().trim()}`;
     try {
-      const current = await kvGet(key);
+      const current = await kvGet(usageKey);
       if (current >= FREE_LIMIT) {
         return res.status(403).json({
           error: "Free limit reached",
@@ -41,10 +42,8 @@ export default async function handler(req, res) {
           hasAccess: false,
         });
       }
-      await kvSet(key, current + 1);
     } catch (kvErr) {
       console.error("Upstash error:", kvErr);
-      // Fail open — don't block users if DB is down
     }
   }
 
@@ -72,6 +71,17 @@ export default async function handler(req, res) {
     }
 
     const text = data.content?.map((b) => b.text || "").join("") || "";
+
+    // --- Only increment AFTER successful generation ---
+    if (usageKey) {
+      try {
+        const current = await kvGet(usageKey);
+        await kvSet(usageKey, current + 1);
+      } catch (kvErr) {
+        console.error("Upstash increment error:", kvErr);
+      }
+    }
+
     return res.status(200).json({ result: text.trim() });
 
   } catch (error) {

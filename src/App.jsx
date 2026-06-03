@@ -75,7 +75,7 @@ function Logo() {
     <div style={{ display:"inline-flex", alignItems:"center", gap:10, marginBottom:24 }}>
       <div style={{ width:34, height:34, border:"1px solid var(--gold)", borderRadius:7,
         display:"flex", alignItems:"center", justifyContent:"center", background:"var(--gold-dim)" }}>
-        <img src="/logo.png" alt="RefinedListing" style={{ width:28, height:28, objectFit:"contain" }} />
+        <img src="/logo.png" alt="RefinedListing" style={{ width:22, height:22, objectFit:"contain" }} />
       </div>
       <span style={{ fontFamily:"'DM Mono',monospace", fontSize:12,
         letterSpacing:"0.18em", color:"var(--gold)", textTransform:"uppercase", fontWeight:300 }}>

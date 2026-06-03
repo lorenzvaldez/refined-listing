@@ -75,10 +75,7 @@ function Logo() {
     <div style={{ display:"inline-flex", alignItems:"center", gap:10, marginBottom:24 }}>
       <div style={{ width:34, height:34, border:"1px solid var(--gold)", borderRadius:7,
         display:"flex", alignItems:"center", justifyContent:"center", background:"var(--gold-dim)" }}>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" stroke="#c9a84c" strokeWidth="1.5" strokeLinejoin="round"/>
-          <path d="M12 2v20M3 7l9 5 9-5" stroke="#c9a84c" strokeWidth="1.5" strokeLinejoin="round"/>
-        </svg>
+        <img src="/logo.png" alt="RefinedListing" style={{ width:28, height:28, objectFit:"contain" }} />
       </div>
       <span style={{ fontFamily:"'DM Mono',monospace", fontSize:12,
         letterSpacing:"0.18em", color:"var(--gold)", textTransform:"uppercase", fontWeight:300 }}>
